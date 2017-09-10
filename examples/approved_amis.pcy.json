@@ -1,0 +1,16 @@
+{
+  "id": "approved-amis-only",
+  "provider": "aws",
+  "resourceType": "ec2_ami",
+  "filters": [{
+    "type": "JMESPath",
+    "expression": "ImageId",
+    "assert": {
+      "operator": "any(equal)", // in/contains/
+      "value": ["ami-87654321","ami-12345678"]
+    }
+  }],
+  "alerts": [{
+    "channel": "console"
+  }]
+}

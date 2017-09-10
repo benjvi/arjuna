@@ -1,0 +1,28 @@
+{
+  "id": "flow-logs-present",
+  "provider": "aws",
+  "resourceType": "ec2_instance",
+  "embed": [{
+    "key": "flowlogs",
+    "data": {
+      "provider": "aws",
+      "resourceType": "ec2_flow_log",
+    },
+    "on": {
+      "embeddedResourceKey": "ResourceId",
+      "match": "=",
+      "resourceKey": "VpcId"
+    }
+  }],
+  "filters": [{
+    "type": "JMESPath",
+    "expression": "length(flowlogs[?TrafficType=='ALL'] | [?FlowLogStatus=='ACTIVE'])",
+    "assert": {
+      "operator": ">",
+      "value": 0
+    }
+  }],
+  "alerts": [{
+    "channel": "console"
+  }]
+}

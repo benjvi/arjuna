@@ -1,0 +1,9 @@
+{
+  "id": "audit-test",
+  "provider": "aws",
+  "resourceType": "ec2_instance",
+  "assert": {
+    "property": "count",
+    "value": 1
+  }
+}

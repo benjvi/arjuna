@@ -1,0 +1,16 @@
+{
+  "id": "billing-tag-applied",
+  "provider": "aws",
+  "resourceType": "ec2_instance",
+  "filters": [{
+      "type": "JMESPath",
+      "expression": "Tags[?Key=='BillingRef'].Value",
+      "assert": {
+        "operator": "!=",
+        "value": "abc"
+      }
+  }],
+  "alerts": [{
+    "channel": "console"
+  }]
+}

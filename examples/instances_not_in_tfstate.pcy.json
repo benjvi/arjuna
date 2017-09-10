@@ -1,0 +1,23 @@
+{
+  "id": "terraform-instances-only",
+  "provider": "aws",
+  "resources": "ec2_instance",
+  "augmentations": [{
+    "key": "terraform_instances",
+    "data": {
+      "json_file": "terraform.tfstate",
+      "expression": "modules[].resources[].[?type=='aws_instance'].primary.id"
+    }
+  }],
+  "filters": [{
+    "type": "JMESPath",
+    "expression": "ImageId",
+    "assert": {
+      "operator": "any(equal)",
+      "expression": "terraform_instances"
+    }
+  }],
+  "alerts": [{
+    "channel": "console"
+  }]
+}

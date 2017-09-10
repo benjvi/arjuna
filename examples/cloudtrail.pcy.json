@@ -1,0 +1,29 @@
+{
+  "id": "flowlogs-enabled",
+  "provider": "aws",
+  "resourceType": "cloudtrail",
+  "filters": [
+    {
+      "expression": "IncludeGlobalServiceEvents",
+      "assert": {
+        "match": "=",
+        "value": true
+      }
+    },
+    {
+      "expression": "IsMultiRegionTrail",
+      "assert": {
+        "match": "=",
+        "value": true
+      }
+    }
+  ],
+  "assert": {
+    "property": "count",
+    "match": ">=",
+    "value": 1
+  },
+  "alerts": [{
+    "channel": "console"
+  }]
+}
